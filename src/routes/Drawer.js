@@ -9,7 +9,7 @@ import {
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import Animated from "react-native-reanimated";
 
-import HomeScreen from "../views/Home";
+import HomeScreen from "../views/Home/Home";
 
 const DrawerNavigator = createDrawerNavigator();
 const StackNavigator = createStackNavigator();
