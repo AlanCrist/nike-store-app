@@ -1,6 +1,18 @@
 import React, {useState} from "react";
-import {Text, View, StyleSheet, SafeAreaView, FlatList} from "react-native";
+import {
+  Text,
+  View,
+  StyleSheet,
+  SafeAreaView,
+  FlatList,
+  Dimensions,
+} from "react-native";
 import {TouchableOpacity} from "react-native-gesture-handler";
+import LinearGradient from "react-native-linear-gradient";
+
+import Carousel from "../../components/Carousel";
+
+const {width, height} = Dimensions.get("window");
 
 export default function Home() {
   const [nameSelected, setNameSelected] = useState(0);
@@ -62,6 +74,28 @@ export default function Home() {
             )}
           />
         </View>
+        <View style={styles.carouselContainer}>
+          <Carousel
+            data={[
+              {name: "Nike", key: "0", price: 0},
+              {name: "Nike", key: "1", price: 0},
+              {name: "Nike", key: "2", price: 0},
+              {name: "Nike", key: "3", price: 0},
+              {name: "Nike", key: "4", price: 0},
+              {name: "Nike", key: "5", price: 0},
+              {name: "Nike", key: "6", price: 0},
+            ]}
+          />
+        </View>
+        <View>
+          <TouchableOpacity>
+            <LinearGradient
+              colors={["#eb4034", "#e8665d", "#ffbd8a"]}
+              style={styles.linearGradient}>
+              <Text style={styles.buttonText}>Nike</Text>
+            </LinearGradient>
+          </TouchableOpacity>
+        </View>
       </SafeAreaView>
     </View>
   );
@@ -96,5 +130,19 @@ const styles = StyleSheet.create({
     fontSize: 22,
     color: "#000",
     fontWeight: "bold",
+  },
+  carouselContainer: {},
+  linearGradient: {
+    height: height / 6,
+    margin: 15,
+    justifyContent: "center",
+    borderRadius: 25,
+  },
+  buttonText: {
+    fontSize: 18,
+    textAlign: "center",
+    margin: 10,
+    color: "#ffffff",
+    backgroundColor: "transparent",
   },
 });
