@@ -5,10 +5,19 @@ import {
   StyleSheet,
   SafeAreaView,
   FlatList,
+  Image,
   Dimensions,
 } from "react-native";
 import {TouchableOpacity} from "react-native-gesture-handler";
 import LinearGradient from "react-native-linear-gradient";
+
+import MaxImage1 from "../../assets/max-blackwhite.png";
+import MaxImage2 from "../../assets/max-bluepink.png";
+import MaxImage3 from "../../assets/max-orange.png";
+import MaxImage4 from "../../assets/max-purple.png";
+import MaxImage5 from "../../assets/max-red.png";
+import MaxImage6 from "../../assets/max-rose.png";
+import MaxImage7 from "../../assets/rib63.png";
 
 import Carousel from "../../components/Carousel";
 
@@ -77,13 +86,13 @@ export default function Home() {
         <View style={styles.carouselContainer}>
           <Carousel
             data={[
-              {name: "Nike", key: "0", price: 0},
-              {name: "Nike", key: "1", price: 0},
-              {name: "Nike", key: "2", price: 0},
-              {name: "Nike", key: "3", price: 0},
-              {name: "Nike", key: "4", price: 0},
-              {name: "Nike", key: "5", price: 0},
-              {name: "Nike", key: "6", price: 0},
+              {name: "Nike", key: "0", price: 345, image: MaxImage1},
+              {name: "Nike", key: "1", price: 565, image: MaxImage2},
+              {name: "Nike", key: "2", price: 860, image: MaxImage3},
+              {name: "Nike", key: "3", price: 370, image: MaxImage4},
+              {name: "Nike", key: "4", price: 299, image: MaxImage5},
+              {name: "Nike", key: "5", price: 907, image: MaxImage6},
+              {name: "Nike", key: "6", price: 1000, image: MaxImage7},
             ]}
           />
         </View>
