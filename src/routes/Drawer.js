@@ -9,7 +9,7 @@ import {
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import Animated from "react-native-reanimated";
 
-import HomeScreen from "../views/Home/Home";
+import BottomTabs from "./BottomTabs";
 
 const DrawerNavigator = createDrawerNavigator();
 const StackNavigator = createStackNavigator();
@@ -44,7 +44,7 @@ const Screens = ({navigation, style}) => {
             </TouchableOpacity>
           ),
         }}>
-        <StackNavigator.Screen name="Home" component={HomeScreen} />
+        <StackNavigator.Screen name="Home" component={BottomTabs} />
       </StackNavigator.Navigator>
     </Animated.View>
   );

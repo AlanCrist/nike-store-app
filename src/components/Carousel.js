@@ -202,9 +202,4 @@ const styles = StyleSheet.create({
     color: "#000",
     backgroundColor: "transparent",
   },
-  item: {},
-  tinyLogo: {
-    // width: 200,
-    // height: 200,
-  },
 });

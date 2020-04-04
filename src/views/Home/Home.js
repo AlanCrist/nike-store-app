@@ -133,7 +133,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#FFF",
   },
   containerText: {
-    marginTop: 70,
+    marginTop: 55,
     marginLeft: 20,
   },
   text: {
