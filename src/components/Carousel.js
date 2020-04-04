@@ -12,6 +12,8 @@ import {
 } from "react-native";
 import {TouchableOpacity} from "react-native-gesture-handler";
 
+import TouchableScale from "react-native-touchable-scale";
+
 import Icon from "react-native-vector-icons/MaterialIcons";
 
 const {width, height} = Dimensions.get("window");
@@ -70,16 +72,14 @@ export default function Carousel({data}) {
 
   const generateColor = (index) => {
     const list = [
-      "#8080ff",
-      "#cc6699",
-      "#669999",
-      "#8585ad",
-      "#99cc00",
-      "#ff3333",
-      "#cc6699",
-      "#99cc00",
-      "#e6b800",
-      "#ff9933",
+      ["#f20000", "#ff4a4d", "#ff9393"],
+      ["#00899f", shadeColor("#00899f", 40), shadeColor("#00899f", 40)],
+      ["#ff3e66", shadeColor("#ff3e66", 80), "#fdeaac"],
+      ["#8b16f8", "#649bf2", "#4ac8e5"],
+      ["#069444", "#85c232", "#f7ec22"],
+      ["#06aac3", "#85d5a0", "#f7fd81"],
+      ["#322a6c", "#5b2b7e", "#832d90"],
+      ["#ee2324", "#f48323", "#fbe721"],
     ];
     return list[radnums[index]];
   };
@@ -88,47 +88,75 @@ export default function Carousel({data}) {
     const cor = generateColor(index);
 
     return (
-      <View style={styles.item}>
-        <View>
-          <LinearGradient
-            colors={[
-              shadeColor(cor, 80),
-              shadeColor(cor, 60),
-              shadeColor(cor, 20),
-            ]}
-            style={styles.linearGradient}>
-            <View style={{marginLeft: 12}}>
-              <Text style={{fontSize: 30, color: "#FFF", fontWeight: "bold"}}>
-                {index < 10 ? `0${index + 1}` : `${index + 1}`}
-              </Text>
-            </View>
-            <View style={{right: 10}}>
+      <View>
+        <LinearGradient colors={cor} style={styles.linearGradient}>
+          <View style={{marginLeft: 12}}>
+            <Text
+              style={{
+                fontSize: 30,
+                color: "#FFF",
+                fontWeight: "bold",
+                textShadowColor: "rgba(0, 0, 0, 0.3)",
+                textShadowOffset: {width: 0, height: 1},
+                textShadowRadius: 10,
+              }}>
+              {index < 10 ? `0${index + 1}` : `${index + 1}`}
+            </Text>
+          </View>
+          <TouchableScale>
+            <View style={{bottom: 25, right: 5}}>
               <Image
                 source={item.image}
-                style={{resizeMode: "cover", width: 250, height: 170}}
+                style={{resizeMode: "cover", width: 230, height: 160}}
               />
             </View>
-            <View style={{marginLeft: 12}}>
-              <Text
-                style={{
-                  color: "#FFF",
-                  fontSize: 15,
-                  fontWeight: "bold",
-                  marginBottom: 4,
-                }}>
-                {item.name}
-              </Text>
-              <Text style={{color: "#FFF", fontSize: 20, fontWeight: "bold"}}>
-                $ {item.price}
-              </Text>
-              <View style={{right: 5, marginTop: 6}}>
-                <TouchableOpacity>
-                  <Icon name="add-box" size={30} color="#FFF" />
-                </TouchableOpacity>
-              </View>
+          </TouchableScale>
+          <View style={{marginLeft: 12}}>
+            <Text
+              style={{
+                color: "#FFF",
+                fontSize: 15,
+                fontWeight: "bold",
+                marginBottom: 4,
+                textShadowColor: "rgba(0, 0, 0, 0.3)",
+                textShadowOffset: {width: 0, height: 1},
+                textShadowRadius: 10,
+              }}>
+              {item.name}
+            </Text>
+            <Text
+              style={{
+                color: "#FFF",
+                fontSize: 20,
+                fontWeight: "bold",
+                textShadowColor: "rgba(0, 0, 0, 0.3)",
+                textShadowOffset: {width: 0, height: 1},
+                textShadowRadius: 10,
+              }}>
+              $ {item.price}
+            </Text>
+            <View
+              style={{
+                right: 6,
+                marginTop: 6,
+                width: "18%",
+                alignItems: "center",
+              }}>
+              <TouchableOpacity>
+                <Icon
+                  name="add-box"
+                  size={30}
+                  color="#FFF"
+                  style={{
+                    textShadowColor: "rgba(0, 0, 0, 0.3)",
+                    textShadowOffset: {width: 0, height: 1},
+                    textShadowRadius: 10,
+                  }}
+                />
+              </TouchableOpacity>
             </View>
-          </LinearGradient>
-        </View>
+          </View>
+        </LinearGradient>
       </View>
     );
   };
