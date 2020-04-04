@@ -29,22 +29,30 @@ export default function Home() {
     {
       title: "Nike",
       key: "0",
-      products: [{title: "Nike", key: "0", price: 0}],
+      products: [
+        {name: "Nike", key: "0", price: 345, image: MaxImage1},
+        {name: "Nike", key: "1", price: 565, image: MaxImage2},
+        {name: "Nike", key: "2", price: 860, image: MaxImage3},
+        {name: "Nike", key: "3", price: 370, image: MaxImage4},
+        {name: "Nike", key: "4", price: 299, image: MaxImage5},
+        {name: "Nike", key: "5", price: 907, image: MaxImage6},
+        {name: "Nike", key: "6", price: 1000, image: MaxImage7},
+      ],
     },
     {
       title: "Adidas",
       key: "1",
-      products: [{title: "Nike", key: "0", price: 0}],
+      products: [{name: "Nike", key: "0", price: 345, image: MaxImage1}],
     },
     {
       title: "Converse",
       key: "2",
-      products: [{title: "Nike", key: "0", price: 0}],
+      products: [{name: "Nike", key: "0", price: 345, image: MaxImage1}],
     },
     {
       title: "Vans",
       key: "3",
-      products: [{title: "Nike", key: "0", price: 0}],
+      products: [{name: "Nike", key: "0", price: 345, image: MaxImage1}],
     },
   ];
 
@@ -84,24 +92,33 @@ export default function Home() {
           />
         </View>
         <View style={styles.carouselContainer}>
-          <Carousel
-            data={[
-              {name: "Nike", key: "0", price: 345, image: MaxImage1},
-              {name: "Nike", key: "1", price: 565, image: MaxImage2},
-              {name: "Nike", key: "2", price: 860, image: MaxImage3},
-              {name: "Nike", key: "3", price: 370, image: MaxImage4},
-              {name: "Nike", key: "4", price: 299, image: MaxImage5},
-              {name: "Nike", key: "5", price: 907, image: MaxImage6},
-              {name: "Nike", key: "6", price: 1000, image: MaxImage7},
-            ]}
-          />
+          <Carousel data={mark[nameSelected].products} />
         </View>
         <View>
           <TouchableOpacity>
             <LinearGradient
               colors={["#eb4034", "#e8665d", "#ffbd8a"]}
               style={styles.linearGradient}>
-              <Text style={styles.buttonText}>Nike</Text>
+              <View style={{marginTop: 50, marginLeft: 20}}>
+                <Text
+                  style={{
+                    fontSize: 25,
+                    fontWeight: "bold",
+                    color: "#fff",
+                    marginBottom: 10,
+                  }}>
+                  Nike Air Psgesuss
+                </Text>
+                <Text style={{fontSize: 25, fontWeight: "bold", color: "#fff"}}>
+                  $370
+                </Text>
+              </View>
+              <View style={{alignItems: "flex-end", bottom: 30}}>
+                <Image
+                  source={MaxImage4}
+                  style={{resizeMode: "cover", width: 230, height: 150}}
+                />
+              </View>
             </LinearGradient>
           </TouchableOpacity>
         </View>
@@ -144,7 +161,7 @@ const styles = StyleSheet.create({
   linearGradient: {
     height: height / 6,
     margin: 15,
-    justifyContent: "center",
+    justifyContent: "space-around",
     borderRadius: 25,
   },
   buttonText: {
