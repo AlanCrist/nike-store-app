@@ -8,8 +8,11 @@ import {
   FlatList,
   SafeAreaView,
   Dimensions,
+  Button,
 } from "react-native";
 import {TouchableOpacity} from "react-native-gesture-handler";
+
+import Icon from "react-native-vector-icons/MaterialIcons";
 
 const {width, height} = Dimensions.get("window");
 
@@ -34,17 +37,59 @@ export default function Carousel({data}) {
     return "#" + RR + GG + BB;
   }
 
-  const generateColor = () => {
-    let cor = "#" + Math.random().toString(16).substr(-6);
-    return cor;
+  function random(min, max, length) {
+    var numbers = [];
+
+    function _random(min, max) {
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    Array.apply(null, new Array(length)).reduce(function (previous) {
+      var nextRandom;
+
+      if (previous === min) {
+        nextRandom = _random(min + 1, max);
+      } else if (previous === max) {
+        nextRandom = _random(min, max - 1);
+      } else {
+        if (_random(0, 1)) {
+          nextRandom = _random(previous + 1, max);
+        } else {
+          nextRandom = _random(min, previous - 1);
+        }
+      }
+
+      numbers.push(nextRandom);
+      return nextRandom;
+    }, _random(min, max));
+
+    return numbers;
+  }
+
+  const radnums = random(0, 5, data.length);
+
+  const generateColor = (index) => {
+    const list = [
+      "#8080ff",
+      "#cc6699",
+      "#669999",
+      "#8585ad",
+      "#99cc00",
+      "#ff3333",
+      "#cc6699",
+      "#99cc00",
+      "#e6b800",
+      "#ff9933",
+    ];
+    return list[radnums[index]];
   };
 
-  const renderItem = ({item}) => {
-    const cor = generateColor();
+  const renderItem = ({item, index}) => {
+    const cor = generateColor(index);
 
     return (
       <View style={styles.item}>
-        <TouchableOpacity>
+        <View>
           <LinearGradient
             colors={[
               shadeColor(cor, 80),
@@ -52,9 +97,38 @@ export default function Carousel({data}) {
               shadeColor(cor, 20),
             ]}
             style={styles.linearGradient}>
-            <Text style={styles.buttonText}>{item.name}</Text>
+            <View style={{marginLeft: 12}}>
+              <Text style={{fontSize: 30, color: "#FFF", fontWeight: "bold"}}>
+                {index < 10 ? `0${index + 1}` : `${index + 1}`}
+              </Text>
+            </View>
+            <View style={{right: 10}}>
+              <Image
+                source={item.image}
+                style={{resizeMode: "cover", width: 250, height: 170}}
+              />
+            </View>
+            <View style={{marginLeft: 12}}>
+              <Text
+                style={{
+                  color: "#FFF",
+                  fontSize: 15,
+                  fontWeight: "bold",
+                  marginBottom: 4,
+                }}>
+                {item.name}
+              </Text>
+              <Text style={{color: "#FFF", fontSize: 20, fontWeight: "bold"}}>
+                $ {item.price}
+              </Text>
+              <View style={{right: 5, marginTop: 6}}>
+                <TouchableOpacity>
+                  <Icon name="add-box" size={30} color="#FFF" />
+                </TouchableOpacity>
+              </View>
+            </View>
           </LinearGradient>
-        </TouchableOpacity>
+        </View>
       </View>
     );
   };
@@ -101,4 +175,8 @@ const styles = StyleSheet.create({
     backgroundColor: "transparent",
   },
   item: {},
+  tinyLogo: {
+    // width: 200,
+    // height: 200,
+  },
 });
