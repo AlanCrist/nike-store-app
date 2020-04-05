@@ -23,7 +23,7 @@ import Carousel from "../../components/Carousel";
 
 const {width, height} = Dimensions.get("window");
 
-export default function Home() {
+export default function Home({navigation}) {
   const [nameSelected, setNameSelected] = useState(0);
   const mark = [
     {
@@ -92,7 +92,10 @@ export default function Home() {
           />
         </View>
         <View style={styles.carouselContainer}>
-          <Carousel data={mark[nameSelected].products} />
+          <Carousel
+            onPressDetail={() => navigation.navigate("Detail")}
+            data={mark[nameSelected].products}
+          />
         </View>
         <View>
           <TouchableOpacity>
