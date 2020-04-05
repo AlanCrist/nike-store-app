@@ -5,6 +5,7 @@ import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 
 import HomeScreen from "../views/Home/ListProducts";
 import Favorite from "../views/Favorite/ListFavorite";
+import Profile from "../views/Profile/DetailProfile";
 
 function IconWithBadge({name, badgeCount, color, size, focused}) {
   return (
@@ -79,7 +80,7 @@ export default function BottomTabs() {
                 color={color}
               />
             );
-          } else if (route.name === "Account") {
+          } else if (route.name === "Profile") {
             return (
               <HomeIconWithBadge
                 badgeCount={0}
@@ -101,7 +102,7 @@ export default function BottomTabs() {
       initialRouteName="Home">
       <Tab.Screen name="Favorite" component={Favorite} />
       <Tab.Screen name="Home" component={HomeScreen} />
-      <Tab.Screen name="Account" component={HomeScreen} />
+      <Tab.Screen name="Profile" component={Profile} />
     </Tab.Navigator>
   );
 }

@@ -10,10 +10,8 @@ import {
 } from "@react-navigation/drawer";
 
 import BottomTabs from "./BottomTabs";
-
 import Detail from "../views/Details/DetailProduct";
 import Cart from "../views/Cart/ListCart";
-import Favorite from "../views/Favorite/ListFavorite";
 
 const DrawerNavigator = createDrawerNavigator();
 const StackNavigator = createStackNavigator();
@@ -25,7 +23,6 @@ const Screens = ({navigation, style}) => {
         {flex: 1, overflow: "hidden"},
         style,
         {
-          borderWidth: 1,
           borderRadius: 2,
           borderColor: "#ddd",
           borderBottomWidth: 0,
@@ -135,9 +132,6 @@ function Drawer() {
         <DrawerNavigator.Screen name="Screens">
           {(props) => <Screens {...props} style={scrennStyles} />}
         </DrawerNavigator.Screen>
-        {/* <DrawerNavigator.Screen name="Favorites">
-          {(props) => <Favorites {...props} style={scrennStyles} />}
-        </DrawerNavigator.Screen> */}
       </DrawerNavigator.Navigator>
     </View>
   );
