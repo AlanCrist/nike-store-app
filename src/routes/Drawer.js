@@ -1,17 +1,18 @@
 import * as React from "react";
-import {View, TouchableOpacity, StyleSheet} from "react-native";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import Animated from "react-native-reanimated";
+import {View, TouchableOpacity, StyleSheet, Text} from "react-native";
 import {createStackNavigator} from "@react-navigation/stack";
 import {
   DrawerItem,
   createDrawerNavigator,
   DrawerContentScrollView,
 } from "@react-navigation/drawer";
-import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import Ionicons from "react-native-vector-icons/Ionicons";
-import Animated from "react-native-reanimated";
 
 import BottomTabs from "./BottomTabs";
+
 import Detail from "../views/Details/DetailProduct";
+import Cart from "../views/Cart/ListCart";
 
 const DrawerNavigator = createDrawerNavigator();
 const StackNavigator = createStackNavigator();
@@ -53,6 +54,15 @@ const Screens = ({navigation, style}) => {
           }}
         />
         <StackNavigator.Screen name="Detail" component={Detail} />
+        <StackNavigator.Screen
+          name="Cart"
+          component={Cart}
+          options={{
+            headerTitle: () => (
+              <Text style={{fontSize: 30, left: "220%"}}>Cart</Text>
+            ),
+          }}
+        />
       </StackNavigator.Navigator>
     </Animated.View>
   );
@@ -70,7 +80,7 @@ const DrawerContent = (props) => {
         <DrawerItem
           label="Cart"
           labelStyle={styles.drawer_item}
-          onPress={() => props.navigation.navigate("Home")}
+          onPress={() => props.navigation.navigate("Cart")}
         />
         <DrawerItem
           label="Contact"
