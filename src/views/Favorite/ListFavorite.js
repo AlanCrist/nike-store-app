@@ -1,5 +1,5 @@
-import React, {useState} from "react";
-import {View, StyleSheet, TouchableWithoutFeedback} from "react-native";
+import React from "react";
+import {View, StyleSheet, TouchableWithoutFeedback, Text} from "react-native";
 
 import MaxImage1 from "../../assets/max-blackwhite.png";
 import MaxImage2 from "../../assets/max-bluepink.png";
@@ -68,6 +68,9 @@ export default function Favorite({navigation}) {
 
   return (
     <View style={styles.container}>
+      <View style={{alignItems: "center", top: 10, height: 0}}>
+        <Text style={{fontSize: 30}}>Favorite</Text>
+      </View>
       <View style={{marginTop: 25, flex: 1}}>
         <CardGradientList
           onPressDetail={() => navigation.navigate("Detail")}
