@@ -13,6 +13,7 @@ import BottomTabs from "./BottomTabs";
 
 import Detail from "../views/Details/DetailProduct";
 import Cart from "../views/Cart/ListCart";
+import Favorite from "../views/Favorite/ListFavorite";
 
 const DrawerNavigator = createDrawerNavigator();
 const StackNavigator = createStackNavigator();
@@ -134,6 +135,9 @@ function Drawer() {
         <DrawerNavigator.Screen name="Screens">
           {(props) => <Screens {...props} style={scrennStyles} />}
         </DrawerNavigator.Screen>
+        {/* <DrawerNavigator.Screen name="Favorites">
+          {(props) => <Favorites {...props} style={scrennStyles} />}
+        </DrawerNavigator.Screen> */}
       </DrawerNavigator.Navigator>
     </View>
   );

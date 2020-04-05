@@ -4,6 +4,7 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 
 import HomeScreen from "../views/Home/ListProducts";
+import Favorite from "../views/Favorite/ListFavorite";
 
 function IconWithBadge({name, badgeCount, color, size, focused}) {
   return (
@@ -15,7 +16,7 @@ function IconWithBadge({name, badgeCount, color, size, focused}) {
           style={{
             position: "absolute",
             left: 9,
-            bottom: -9,
+            bottom: -6,
             backgroundColor: "black",
             borderRadius: 6,
             width: 5,
@@ -63,17 +64,17 @@ export default function BottomTabs() {
               <HomeIconWithBadge
                 badgeCount={0}
                 focused={focused}
-                name="heart-outline"
+                name="home-variant-outline"
                 size={size}
                 color={color}
               />
             );
-          } else if (route.name === "Favorites") {
+          } else if (route.name === "Favorite") {
             return (
               <HomeIconWithBadge
                 badgeCount={0}
                 focused={focused}
-                name="home-variant-outline"
+                name="heart-outline"
                 size={size}
                 color={color}
               />
@@ -98,8 +99,8 @@ export default function BottomTabs() {
         style: {borderColor: "transparent", shadowColor: "transparent"},
       }}
       initialRouteName="Home">
+      <Tab.Screen name="Favorite" component={Favorite} />
       <Tab.Screen name="Home" component={HomeScreen} />
-      <Tab.Screen name="Favorites" component={HomeScreen} />
       <Tab.Screen name="Account" component={HomeScreen} />
     </Tab.Navigator>
   );
