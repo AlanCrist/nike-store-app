@@ -18,7 +18,11 @@ import Icon from "react-native-vector-icons/MaterialIcons";
 
 const {width, height} = Dimensions.get("window");
 
-export default function Carousel({data}) {
+export default function Carousel({
+  data,
+  onPressAdd = () => {},
+  onPressDetail = () => {},
+}) {
   function shadeColor(color, percent) {
     var R = parseInt(color.substring(1, 3), 16);
     var G = parseInt(color.substring(3, 5), 16);
@@ -103,7 +107,7 @@ export default function Carousel({data}) {
               {index < 10 ? `0${index + 1}` : `${index + 1}`}
             </Text>
           </View>
-          <TouchableScale>
+          <TouchableScale onPress={onPressDetail}>
             <View style={{bottom: 25, right: 5}}>
               <Image
                 source={item.image}
@@ -142,7 +146,7 @@ export default function Carousel({data}) {
                 width: "18%",
                 alignItems: "center",
               }}>
-              <TouchableOpacity>
+              <TouchableOpacity onPress={onPressAdd}>
                 <Icon
                   name="add-box"
                   size={30}
