@@ -22,6 +22,9 @@ export default function CardGradientList({
   data,
   onPressAdd = () => {},
   onPressDetail = () => {},
+  ItemOnRight,
+  outherName,
+  fractionScreenDimension = 4,
 }) {
   function shadeColor(color, percent) {
     var R = parseInt(color.substring(1, 3), 16);
@@ -92,51 +95,85 @@ export default function CardGradientList({
     const cor = generateColor(index);
 
     return (
-      <View style={index < 2 ? {marginTop: 10} : {}}>
-        <LinearGradient colors={cor} style={styles.linearGradient}>
-          <View style={{left: 5, bottom: 22}}>
-            <Image
-              source={item.image}
-              style={{resizeMode: "cover", width: 160, height: 110}}
-            />
-          </View>
-          <View style={{marginHorizontal: 12, marginBottom: 20}}>
-            <Text
-              style={{
-                color: "#FFF",
-                fontSize: 20,
-                fontWeight: "bold",
-                marginBottom: 4,
-                textShadowColor: "rgba(0, 0, 0, 0.3)",
-                textShadowOffset: {width: 0, height: 1},
-                textShadowRadius: 10,
-              }}>
-              {item.name}
-            </Text>
+      <View style={[index < 2 ? {marginTop: 10} : {}, {flex: 1}]}>
+        <LinearGradient
+          colors={cor}
+          style={[
+            styles.linearGradient,
+            {
+              height: height / fractionScreenDimension,
+
+              flex: 1,
+            },
+            fractionScreenDimension > 3.5
+              ? {marginHorizontal: 15, width: width / 2.35}
+              : {marginLeft: 10, width: width / 2.2},
+          ]}>
+          <View style={{flex: 1, justifyContent: "space-between", bottom: 15}}>
+            <View style={{flex: 1}}>
+              <TouchableScale onPress={onPressDetail}>
+                <View style={{left: 5, bottom: 10}}>
+                  <Image
+                    source={item.image}
+                    style={{resizeMode: "cover", width: 160, height: 110}}
+                  />
+                </View>
+              </TouchableScale>
+            </View>
             <View
-              style={{flexDirection: "row", justifyContent: "space-between"}}>
+              style={{
+                marginHorizontal: 12,
+                justifyContent: "space-evenly",
+                flex: 1,
+              }}>
               <Text
                 style={{
                   color: "#FFF",
-                  fontSize: 25,
+                  fontSize: 20,
                   fontWeight: "bold",
+                  marginBottom: 4,
                   textShadowColor: "rgba(0, 0, 0, 0.3)",
                   textShadowOffset: {width: 0, height: 1},
                   textShadowRadius: 10,
                 }}>
-                $ {item.price}
+                {item.name}
               </Text>
-              <Text
-                style={{
-                  color: "#FFF",
-                  fontSize: 15,
-                  textShadowColor: "rgba(0, 0, 0, 0.3)",
-                  textShadowOffset: {width: 0, height: 1},
-                  textShadowRadius: 10,
-                  alignSelf: "flex-end",
-                }}>
-                1x
-              </Text>
+              {outherName && (
+                <Text
+                  style={{
+                    color: "#e0e0e0",
+                    fontSize: 15,
+                    marginBottom: 4,
+                    textShadowColor: "rgba(0, 0, 0, 0.3)",
+                    textShadowOffset: {width: 0, height: 1},
+                    textShadowRadius: 10,
+                  }}>
+                  {outherName}
+                </Text>
+              )}
+              <View
+                style={{flexDirection: "row", justifyContent: "space-between"}}>
+                <Text
+                  style={{
+                    color: "#FFF",
+                    fontSize: 25,
+                    fontWeight: "bold",
+                    textShadowColor: "rgba(0, 0, 0, 0.3)",
+                    textShadowOffset: {width: 0, height: 1},
+                    textShadowRadius: 10,
+                  }}>
+                  $ {item.price}
+                </Text>
+                {ItemOnRight && (
+                  <View
+                    style={{
+                      justifyContent: "flex-end",
+                      marginRight: 10,
+                    }}>
+                    <ItemOnRight />
+                  </View>
+                )}
+              </View>
             </View>
           </View>
         </LinearGradient>
@@ -144,10 +181,10 @@ export default function CardGradientList({
     );
   };
 
-  const renderSeparator = ({item, index}) => (
+  const renderSeparator = () => (
     <View
       style={{
-        height: 20,
+        height: 25,
       }}
     />
   );
@@ -173,11 +210,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   linearGradient: {
-    height: height / 4,
-    width: width / 2.35,
-    marginHorizontal: 15,
     marginVertical: 10,
-    justifyContent: "center",
     borderRadius: 15,
     borderWidth: 1,
     borderColor: "#ddd",
