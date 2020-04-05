@@ -3,25 +3,31 @@ import {Text, View} from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 
-import HomeScreen from "../views/Home/Home";
+import HomeScreen from "../views/Home/ListProducts";
 
-function IconWithBadge({name, badgeCount, color, size}) {
+function IconWithBadge({name, badgeCount, color, size, focused}) {
   return (
-    <View style={{width: 24, height: 24, margin: 5}}>
-      <Icon
-        name={name}
-        size={size}
-        color={color}
-        style={{
-          textShadowColor: "rgba(0, 0, 0, 0.3)",
-          textShadowOffset: {width: 0, height: 1},
-          textShadowRadius: 10,
-        }}
-      />
+    <View
+      style={{width: focused ? 24 : 22, height: focused ? 24 : 20, margin: 5}}>
+      <Icon name={name} size={size} color={color} />
+      {focused && (
+        <View
+          style={{
+            position: "absolute",
+            left: 9,
+            bottom: -9,
+            backgroundColor: "black",
+            borderRadius: 6,
+            width: 5,
+            height: 5,
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        />
+      )}
       {badgeCount > 0 && (
         <View
           style={{
-            // On React Native < 0.57 overflow outside of parent will not work on Android, see https://git.io/fhLJ8
             position: "absolute",
             right: -6,
             top: -3,
@@ -42,7 +48,7 @@ function IconWithBadge({name, badgeCount, color, size}) {
 }
 
 function HomeIconWithBadge(props) {
-  return <IconWithBadge {...props} badgeCount={null} />;
+  return <IconWithBadge {...props} />;
 }
 
 const Tab = createBottomTabNavigator();
@@ -55,23 +61,29 @@ export default function BottomTabs() {
           if (route.name === "Home") {
             return (
               <HomeIconWithBadge
-                name={focused ? "heart" : "heart-outline"}
+                badgeCount={0}
+                focused={focused}
+                name="heart-outline"
                 size={size}
                 color={color}
               />
             );
-          } else if (route.name === "Settings") {
+          } else if (route.name === "Favorites") {
             return (
-              <Icon
-                name={focused ? "home-variant" : "home-variant-outline"}
+              <HomeIconWithBadge
+                badgeCount={0}
+                focused={focused}
+                name="home-variant-outline"
                 size={size}
                 color={color}
               />
             );
-          } else if (route.name === "Stea") {
+          } else if (route.name === "Account") {
             return (
-              <Icon
-                name={focused ? "account" : "account-outline"}
+              <HomeIconWithBadge
+                badgeCount={0}
+                focused={focused}
+                name="account-outline"
                 size={size}
                 color={color}
               />
@@ -82,11 +94,13 @@ export default function BottomTabs() {
       tabBarOptions={{
         activeTintColor: "black",
         inactiveTintColor: "gray",
+        showLabel: false,
+        style: {borderColor: "transparent", shadowColor: "transparent"},
       }}
       initialRouteName="Home">
       <Tab.Screen name="Home" component={HomeScreen} />
-      <Tab.Screen name="Settings" component={HomeScreen} />
-      <Tab.Screen name="Stea" component={HomeScreen} />
+      <Tab.Screen name="Favorites" component={HomeScreen} />
+      <Tab.Screen name="Account" component={HomeScreen} />
     </Tab.Navigator>
   );
 }

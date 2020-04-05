@@ -7,9 +7,11 @@ import {
   DrawerContentScrollView,
 } from "@react-navigation/drawer";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import Ionicons from "react-native-vector-icons/Ionicons";
 import Animated from "react-native-reanimated";
 
 import BottomTabs from "./BottomTabs";
+import Detail from "../views/Details/DetailProduct";
 
 const DrawerNavigator = createDrawerNavigator();
 const StackNavigator = createStackNavigator();
@@ -36,15 +38,21 @@ const Screens = ({navigation, style}) => {
         screenOptions={{
           headerTransparent: true,
           headerTitle: null,
-          headerLeft: () => (
-            <TouchableOpacity
-              style={{alignItems: "flex-end", margin: 16}}
-              onPress={navigation.openDrawer}>
-              <Icon name="menu" size={30} />
-            </TouchableOpacity>
-          ),
         }}>
-        <StackNavigator.Screen name="Home" component={BottomTabs} />
+        <StackNavigator.Screen
+          name="Home"
+          component={BottomTabs}
+          options={{
+            headerTitle: () => (
+              <TouchableOpacity
+                style={{alignItems: "flex-end", margin: 5}}
+                onPress={navigation.openDrawer}>
+                <Icon name="menu" size={30} />
+              </TouchableOpacity>
+            ),
+          }}
+        />
+        <StackNavigator.Screen name="Detail" component={Detail} />
       </StackNavigator.Navigator>
     </Animated.View>
   );
