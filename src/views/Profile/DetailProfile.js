@@ -10,50 +10,11 @@ import {
 } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
 import Icon from "react-native-vector-icons/MaterialIcons";
+import {observer, inject} from "mobx-react";
 
 import {getColorRandomList} from "../../utils";
 
-import nikeCollection from "../../assets/nike-collection.jpg";
-import adidasCollection from "../../assets/adidas-collection.jpg";
-import converseCollection from "../../assets/converse-collection.jpg";
-import vansCollection from "../../assets/vans-collection.jpg";
-
-export default function Profle() {
-  const mark = [
-    {
-      title: "Nike",
-      collection: nikeCollection,
-      key: "0",
-      products: [
-        {name: "Nike Air Max St1", key: "0", price: 345},
-        {name: "Nike Air Max St2", key: "1", price: 565},
-        {name: "Nike Air Max St3", key: "2", price: 860},
-        {name: "Nike Air Max St4", key: "3", price: 370},
-        {name: "Nike Air Max St5", key: "4", price: 299},
-        {name: "Nike Air Max St6", key: "5", price: 907},
-        {name: "Nike Air Max St7", key: "6", price: 1000},
-      ],
-    },
-    {
-      title: "Adidas",
-      collection: adidasCollection,
-      key: "10",
-      products: [{name: "Nike", key: "7", price: 345}],
-    },
-    {
-      title: "Converse",
-      collection: converseCollection,
-      key: "20",
-      products: [{name: "Nike", key: "8", price: 345}],
-    },
-    {
-      title: "Vans",
-      collection: vansCollection,
-      key: "30",
-      products: [{name: "Nike", key: "9", price: 345}],
-    },
-  ];
-
+function Profile({productStore}) {
   return (
     <View style={styles.container}>
       <View style={{flex: 1}}>
@@ -117,7 +78,7 @@ export default function Profle() {
           </Text>
           <View>
             <FlatList
-              data={mark}
+              data={productStore.mark}
               showsHorizontalScrollIndicator={false}
               horizontal={true}
               keyExtractor={(item) => String(item.key)}
@@ -257,3 +218,5 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
 });
+
+export default inject("productStore")(observer(Profile));

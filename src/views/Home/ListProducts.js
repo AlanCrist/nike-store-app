@@ -10,51 +10,15 @@ import {
 } from "react-native";
 import {TouchableOpacity} from "react-native-gesture-handler";
 import LinearGradient from "react-native-linear-gradient";
+import {observer, inject} from "mobx-react";
 
-import MaxImage1 from "../../assets/max-blackwhite.png";
-import MaxImage2 from "../../assets/max-bluepink.png";
-import MaxImage3 from "../../assets/max-orange.png";
 import MaxImage4 from "../../assets/max-purple.png";
-import MaxImage5 from "../../assets/max-red.png";
-import MaxImage6 from "../../assets/max-rose.png";
-import MaxImage7 from "../../assets/rib63.png";
-
 import Carousel from "../../components/Carousel";
 
 const {width, height} = Dimensions.get("window");
 
-export default function Home({navigation}) {
+function Home({navigation, productStore}) {
   const [nameSelected, setNameSelected] = useState(0);
-  const mark = [
-    {
-      title: "Nike",
-      key: "0",
-      products: [
-        {name: "Nike Air Max St1", key: "0", price: 345, image: MaxImage1},
-        {name: "Nike Air Max St2", key: "1", price: 565, image: MaxImage2},
-        {name: "Nike Air Max St3", key: "2", price: 860, image: MaxImage3},
-        {name: "Nike Air Max St4", key: "3", price: 370, image: MaxImage4},
-        {name: "Nike Air Max St5", key: "4", price: 299, image: MaxImage5},
-        {name: "Nike Air Max St6", key: "5", price: 907, image: MaxImage6},
-        {name: "Nike Air Max St7", key: "6", price: 1000, image: MaxImage7},
-      ],
-    },
-    {
-      title: "Adidas",
-      key: "1",
-      products: [{name: "Nike", key: "0", price: 345, image: MaxImage1}],
-    },
-    {
-      title: "Converse",
-      key: "2",
-      products: [{name: "Nike", key: "0", price: 345, image: MaxImage1}],
-    },
-    {
-      title: "Vans",
-      key: "3",
-      products: [{name: "Nike", key: "0", price: 345, image: MaxImage1}],
-    },
-  ];
 
   const handleChangeMark = (index) => {
     setNameSelected(index);
@@ -68,7 +32,7 @@ export default function Home({navigation}) {
         </View>
         <View style={styles.listMark}>
           <FlatList
-            data={mark}
+            data={productStore.mark}
             horizontal={true}
             keyExtractor={(item, index) => item.key}
             renderItem={({item, index, separators}) => (
@@ -94,7 +58,7 @@ export default function Home({navigation}) {
         <View style={styles.carouselContainer}>
           <Carousel
             onPressDetail={() => navigation.navigate("Detail")}
-            data={mark[nameSelected].products}
+            data={productStore.mark[nameSelected].products}
           />
         </View>
         <View>
@@ -175,3 +139,5 @@ const styles = StyleSheet.create({
     backgroundColor: "transparent",
   },
 });
+
+export default inject("productStore")(observer(Home));
