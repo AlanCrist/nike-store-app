@@ -1,9 +1,17 @@
-import React from 'react';
+import React from "react";
+import {Provider} from "mobx-react";
+import {configure} from "mobx";
+import * as stores from "./stores";
+import Routes from "./routes";
 
-import Routes from './routes';
+configure({strict: "always"});
 
 const App = () => {
-  return <Routes />;
+  return (
+    <Provider {...stores}>
+      <Routes />
+    </Provider>
+  );
 };
 
 export default App;
