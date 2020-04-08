@@ -5,6 +5,14 @@ import {observer, inject} from "mobx-react";
 import CardGradientList from "../../components/CardsGradientList";
 
 function Cart({productStore}) {
+  const shipping = parseFloat(productStore.cart.length * 19).toFixed(2);
+  const tax = parseFloat(
+    productStore.calculeteTotalValue() * (15 / 100),
+  ).toFixed(2);
+  const finalPrice = parseFloat(
+    productStore.calculeteTotalValue() + tax + shipping,
+  ).toFixed(2);
+
   return (
     <View style={styles.container}>
       <View style={{marginTop: 25, flex: 0.68}}>
@@ -33,7 +41,7 @@ function Cart({productStore}) {
             alignItems: "center",
           }}>
           <Text style={{fontSize: 20, color: "#828282"}}>Shipping</Text>
-          <Text style={{fontSize: 20, color: "#828282"}}>$58.20</Text>
+          <Text style={{fontSize: 20, color: "#828282"}}>${shipping}</Text>
         </View>
         <View
           style={{
@@ -43,7 +51,7 @@ function Cart({productStore}) {
             alignItems: "center",
           }}>
           <Text style={{fontSize: 20, color: "#828282"}}>Tax (15%)</Text>
-          <Text style={{fontSize: 20, color: "#828282"}}>$160.01</Text>
+          <Text style={{fontSize: 20, color: "#828282"}}>${tax}</Text>
         </View>
         <View
           style={{
@@ -53,7 +61,7 @@ function Cart({productStore}) {
             alignItems: "center",
           }}>
           <Text style={{fontSize: 30, fontWeight: "bold"}}>Total</Text>
-          <Text style={{fontSize: 30, fontWeight: "bold"}}>$2864.21</Text>
+          <Text style={{fontSize: 30, fontWeight: "bold"}}>${finalPrice}</Text>
         </View>
         <View style={{flex: 0.4, justifyContent: "flex-end"}}>
           <TouchableOpacity onPress={() => {}}>
