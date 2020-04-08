@@ -22,6 +22,8 @@ export default function Carousel({
   data,
   onPressAdd = () => {},
   onPressDetail = () => {},
+  item,
+  index
 }) {
   function shadeColor(color, percent) {
     var R = parseInt(color.substring(1, 3), 16);
@@ -88,93 +90,79 @@ export default function Carousel({
     return list[radnums[index]];
   };
 
-  const renderItem = ({item, index}) => {
-    const cor = generateColor(index);
-
-    return (
-      <View>
-        <LinearGradient colors={cor} style={styles.linearGradient}>
-          <View style={{marginLeft: 12}}>
-            <Text
-              style={{
-                fontSize: 30,
-                color: "#FFF",
-                fontWeight: "bold",
-                textShadowColor: "rgba(0, 0, 0, 0.3)",
-                textShadowOffset: {width: 0, height: 1},
-                textShadowRadius: 10,
-              }}>
-              {index < 10 ? `0${index + 1}` : `${index + 1}`}
-            </Text>
-          </View>
-          <TouchableScale onPress={onPressDetail}>
-            <View style={{bottom: 25, right: 5}}>
-              <Image
-                source={item.image}
-                style={{resizeMode: "cover", width: 230, height: 160}}
-              />
-            </View>
-          </TouchableScale>
-          <View style={{marginLeft: 12}}>
-            <Text
-              style={{
-                color: "#FFF",
-                fontSize: 15,
-                fontWeight: "bold",
-                marginBottom: 4,
-                textShadowColor: "rgba(0, 0, 0, 0.3)",
-                textShadowOffset: {width: 0, height: 1},
-                textShadowRadius: 10,
-              }}>
-              {item.name}
-            </Text>
-            <Text
-              style={{
-                color: "#FFF",
-                fontSize: 20,
-                fontWeight: "bold",
-                textShadowColor: "rgba(0, 0, 0, 0.3)",
-                textShadowOffset: {width: 0, height: 1},
-                textShadowRadius: 10,
-              }}>
-              $ {item.price}
-            </Text>
-            <View
-              style={{
-                right: 6,
-                marginTop: 6,
-                width: "18%",
-                alignItems: "center",
-              }}>
-              <TouchableOpacity onPress={onPressAdd}>
-                <Icon
-                  name="add-box"
-                  size={30}
-                  color="#FFF"
-                  style={{
-                    textShadowColor: "rgba(0, 0, 0, 0.3)",
-                    textShadowOffset: {width: 0, height: 1},
-                    textShadowRadius: 10,
-                  }}
-                />
-              </TouchableOpacity>
-            </View>
-          </View>
-        </LinearGradient>
-      </View>
-    );
-  };
+  const cor = generateColor(index);
 
   return (
-    <SafeAreaView style={styles.container}>
-      <FlatList
-        data={data}
-        showsHorizontalScrollIndicator={false}
-        horizontal={true}
-        keyExtractor={(item, index) => item.key}
-        renderItem={renderItem}
-      />
-    </SafeAreaView>
+    <View>
+    <LinearGradient colors={cor} style={styles.linearGradient}>
+      <View style={{marginLeft: 12}}>
+        <Text
+          style={{
+            fontSize: 30,
+            color: "#FFF",
+            fontWeight: "bold",
+            textShadowColor: "rgba(0, 0, 0, 0.3)",
+            textShadowOffset: {width: 0, height: 1},
+            textShadowRadius: 10,
+          }}>
+          {index < 10 ? `0${index + 1}` : `${index + 1}`}
+        </Text>
+      </View>
+      <TouchableScale onPress={onPressDetail}>
+        <View style={{bottom: 25, right: 5}}>
+          <Image
+            source={item.image}
+            style={{resizeMode: "cover", width: 230, height: 160}}
+          />
+        </View>
+      </TouchableScale>
+      <View style={{marginLeft: 12}}>
+        <Text
+          style={{
+            color: "#FFF",
+            fontSize: 15,
+            fontWeight: "bold",
+            marginBottom: 4,
+            textShadowColor: "rgba(0, 0, 0, 0.3)",
+            textShadowOffset: {width: 0, height: 1},
+            textShadowRadius: 10,
+          }}>
+          {item.name}
+        </Text>
+        <Text
+          style={{
+            color: "#FFF",
+            fontSize: 20,
+            fontWeight: "bold",
+            textShadowColor: "rgba(0, 0, 0, 0.3)",
+            textShadowOffset: {width: 0, height: 1},
+            textShadowRadius: 10,
+          }}>
+          $ {item.price}
+        </Text>
+        <View
+          style={{
+            right: 6,
+            marginTop: 6,
+            width: "18%",
+            alignItems: "center",
+          }}>
+          <TouchableOpacity onPress={onPressAdd}>
+            <Icon
+              name="add-box"
+              size={30}
+              color="#FFF"
+              style={{
+                textShadowColor: "rgba(0, 0, 0, 0.3)",
+                textShadowOffset: {width: 0, height: 1},
+                textShadowRadius: 10,
+              }}
+            />
+          </TouchableOpacity>
+        </View>
+      </View>
+    </LinearGradient>
+  </View>
   );
 }
 
