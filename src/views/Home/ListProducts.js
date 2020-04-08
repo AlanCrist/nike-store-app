@@ -18,12 +18,10 @@ import Carousel from "../../components/Carousel";
 const {width, height} = Dimensions.get("window");
 
 function Home({navigation, productStore}) {
-  const [nameSelected, setNameSelected] = useState(0);
-
-  const handleChangeMark = (index) => {
-    setNameSelected(index);
+  const detailProduct = (index) => {
+    navigation.navigate("Detail");
+    productStore.productDetail(index);
   };
-
   return (
     <View style={styles.container}>
       <SafeAreaView style={{flex: 1}}>
@@ -39,11 +37,11 @@ function Home({navigation, productStore}) {
               <View style={styles.itemListMask}>
                 <TouchableOpacity
                   key={item.key}
-                  onPress={() => handleChangeMark(index)}>
+                  onPress={() => productStore.handleChangeMark(index)}>
                   <View style={{backgroundColor: "white"}}>
                     <Text
                       style={
-                        nameSelected === index
+                        productStore.mark_selected === index
                           ? styles.markTextSelected
                           : styles.markText
                       }>
@@ -56,9 +54,22 @@ function Home({navigation, productStore}) {
           />
         </View>
         <View style={styles.carouselContainer}>
-          <Carousel
-            onPressDetail={() => navigation.navigate("Detail")}
-            data={productStore.mark[nameSelected].products}
+          <FlatList
+            data={productStore.mark[productStore.mark_selected].products}
+            showsHorizontalScrollIndicator={false}
+            horizontal={true}
+            keyExtractor={(item, index) => item.key}
+            renderItem={({item, index}) => {
+              return (
+                <Carousel
+                  item={item}
+                  index={index}
+                  onPressAdd={() => productStore.addToCart(index)}
+                  onPressDetail={() => detailProduct(index)}
+                  data={productStore.mark[productStore.mark_selected].products}
+                />
+              );
+            }}
           />
         </View>
         <View>

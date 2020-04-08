@@ -8,37 +8,15 @@ import {
   TouchableOpacity,
 } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
-
-import MaxImage1 from "../../assets/max-blackwhite.png";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import {FlatList} from "react-native-gesture-handler";
+import {observer, inject} from "mobx-react";
 
 import {getColorRandomList} from "../../utils";
 
-import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import {FlatList} from "react-native-gesture-handler";
-
 const colors = getColorRandomList(0, 1);
 
-export default function Detail() {
-  const [favorited, setFavorited] = useState(false);
-  const [sizeSelected, setSizeSelected] = useState(0);
-  const [colorSelected, setColorSelected] = useState(0);
-
-  const sizes = [
-    {id: 0, number: "7"},
-    {id: 1, number: "8"},
-    {id: 2, number: "9"},
-    {id: 3, number: "10"},
-    {id: 4, number: "11"},
-    {id: 5, number: "11.5"},
-  ];
-
-  const colorsShoes = [
-    {id: 0, color: "#000"},
-    {id: 1, color: "#919191"},
-    {id: 2, color: "#dbd9b4"},
-    {id: 3, color: "#8c7474"},
-  ];
-
+function Detail({productStore}) {
   return (
     <View style={styles.container}>
       <View
@@ -65,7 +43,7 @@ export default function Detail() {
               top: "20%",
             }}>
             <Image
-              source={MaxImage1}
+              source={productStore.product.image}
               style={{resizeMode: "cover", width: 300, height: 200}}
             />
           </View>
@@ -78,17 +56,18 @@ export default function Detail() {
             justifyContent: "space-between",
             marginBottom: 15,
           }}>
-          <Text style={{fontSize: 40, fontWeight: "bold"}}>Nike Air Vapor</Text>
-          <TouchableWithoutFeedback onPress={() => setFavorited(!favorited)}>
+          <Text style={{fontSize: 40, fontWeight: "bold"}}>{productStore.product.name}</Text>
+          <TouchableWithoutFeedback
+            onPress={() => productStore.setProductFavorited()}>
             <Icon
-              name={favorited ? "heart" : "heart-outline"}
+              name={productStore.product.favorited ? "heart" : "heart-outline"}
               size={30}
-              color={favorited ? "red" : "black"}
+              color={productStore.product.favorited ? "red" : "black"}
               style={[
                 {
                   alignSelf: "center",
                 },
-                favorited
+                productStore.product.favorited
                   ? {
                       textShadowColor: "rgba(0, 0, 0, 1)",
                       textShadowOffset: {width: 1, height: 1},
@@ -100,8 +79,7 @@ export default function Detail() {
           </TouchableWithoutFeedback>
         </View>
         <Text style={{fontSize: 16, color: "#757575", fontWeight: "bold"}}>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua.
+          {productStore.product.description}
         </Text>
         <Text
           style={{
@@ -114,7 +92,7 @@ export default function Detail() {
         </Text>
         <View style={{marginTop: 10}}>
           <FlatList
-            data={sizes}
+            data={productStore.product.sizes}
             showsHorizontalScrollIndicator={false}
             horizontal={true}
             keyExtractor={(item) => String(item.id)}
@@ -122,18 +100,20 @@ export default function Detail() {
               return (
                 <TouchableOpacity
                   key={item.id}
-                  onPress={() => setSizeSelected(index)}>
+                  onPress={() => productStore.handleChangeSize()}>
                   <View
                     style={[
                       styles.containerSize,
-                      index === sizeSelected
+                      index === productStore.size_shoes_selected
                         ? {backgroundColor: colors[0], borderRadius: 10}
                         : {borderRadius: 10},
                     ]}>
                     <Text
                       style={[
                         styles.textSize,
-                        index === sizeSelected ? {color: "#FFF"} : {},
+                        index === productStore.size_shoes_selected
+                          ? {color: "#FFF"}
+                          : {},
                       ]}>
                       {item.number}
                     </Text>
@@ -154,7 +134,7 @@ export default function Detail() {
         </Text>
         <View>
           <FlatList
-            data={colorsShoes}
+            data={productStore.product.colors}
             showsHorizontalScrollIndicator={false}
             horizontal={true}
             keyExtractor={(item) => String(item.id)}
@@ -162,7 +142,7 @@ export default function Detail() {
               return (
                 <TouchableOpacity
                   key={item.id}
-                  onPress={() => setColorSelected(index)}>
+                  onPress={() => productStore.handleChangeColor(index)}>
                   <View
                     style={[
                       {
@@ -172,7 +152,7 @@ export default function Detail() {
                         justifyContent: "center",
                         alignItems: "center",
                       },
-                      index === colorSelected
+                      index === productStore.color_shoes_selected
                         ? {width: 34, height: 34, borderRadius: 17, bottom: 2}
                         : {
                             width: 30,
@@ -188,7 +168,7 @@ export default function Detail() {
                             elevation: 6,
                           },
                     ]}>
-                    {index === colorSelected && (
+                    {index === productStore.color_shoes_selected && (
                       <View
                         style={{
                           width: 32,
@@ -257,3 +237,5 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
 });
+
+export default inject("productStore")(observer(Detail));
